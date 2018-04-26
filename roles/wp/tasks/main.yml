@@ -1,0 +1,60 @@
+---
+- name: install nginx
+  apt:
+   name: nginx
+   state: present
+  become: yes
+
+- name: add configuration to nginx
+  template: src="nginx.wp.cfg" dest="/etc/nginx/sites-available/default"
+  become: yes
+
+- name: nginx restart
+  service: name=nginx state=restarted
+  become: yes
+
+- name: install php extensions
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - php-curl
+    - php-gd
+    - php-mbstring
+    - php-mcrypt
+    - php-xml
+    - php-xmlrpc
+    - php-fpm
+    - php-mysql
+    - php-zip
+    - php-intl
+  become: yes
+
+- name: php-fpm restart
+  service: name=php7.0-fpm state=restarted
+  become: yes
+
+- name: download WordPress
+  get_url: url=http://wordpress.org/latest.tar.gz dest=/var/www/html/latest.tar.gz
+  become: yes
+
+- name: extract archive
+  command: chdir=/var/www/html /bin/tar xvf latest.tar.gz
+  become: yes
+
+- name: copy files
+  command: chdir=/var/www/html /bin/cp -a wordpress/. .
+  become: yes
+
+- name: fetch random salts for WordPress config
+  local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+  register: "wp_salt"
+  become: yes
+
+- name: Copy WordPress config file
+  template: src=wp-config.php dest=/var/www/html/
+  become: yes
+
+- name: Change ownership of WordPress installation
+  file: path=/var/www/html owner=www-data group=www-data state=directory
+  become: yes

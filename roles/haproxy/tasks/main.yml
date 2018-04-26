@@ -1,0 +1,14 @@
+---
+- name: install haproxy
+  apt:
+    name: haproxy
+    state: present
+  become: yes
+
+- name: add configuration to haproxy agent
+  template: src="haproxy.wp.cfg" dest="/etc/haproxy/haproxy.cfg"
+  become: yes
+
+- name: haproxy restart
+  service: name=haproxy state=restarted
+  become: yes

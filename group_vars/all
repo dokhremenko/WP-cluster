@@ -1,0 +1,10 @@
+---
+ANSIBLE_HOST_KEY_CHECKING: False
+ansible_ssh_user: ubuntu
+ansible_ssh_private_key_file: ~/bootstrap/key
+root_dir: .
+wp_db_name: wp
+wp_db_user: wpuser
+wp_db_password: secret
+wpserver1: 192.168.122.21
+wpserver2: 192.168.122.22

@@ -1,0 +1,17 @@
+---
+# This playbook deploys WP CMS among with Postgres db to VM cluster based on KVM
+ - name: setup KVM hypervisor
+   hosts: localhost
+   roles:
+     - kvm
+
+ - name: setup VMs
+   hosts: wp-hosts
+   roles:
+     - db
+     - wp
+
+ - name: setup haproxy
+   hosts: localhost
+   roles:
+     - haproxy

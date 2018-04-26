@@ -1,0 +1,16 @@
+---
+- name: install kvm packages
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - qemu-kvm
+    - libvirt-bin
+    - virtinst
+    - bridge-utils
+    - cpu-checker
+  become: yes
+
+- name: run script for WP VM install and cloud configuration
+  command: bash "{{ root_dir }}"/files/vm_install.sh
+  become: yes
