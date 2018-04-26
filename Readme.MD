@@ -7,3 +7,5 @@
 - secure db password
 - use Ansible modules instead deprecated commands(like decompress)
 - manage known hosts check(wasn't work. remedy - ssh config)
+
+#### - Firewall! will be added
