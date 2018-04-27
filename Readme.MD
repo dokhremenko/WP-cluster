@@ -8,4 +8,4 @@
 - use Ansible modules instead deprecated commands(like decompress)
 - manage known hosts check(wasn't work. remedy - ssh config)
 
-#### - Firewall! will be added
+#### - Firewall added but policy for input rule works not good. Maybe due to preview status of iptables module
