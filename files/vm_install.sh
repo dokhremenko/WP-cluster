@@ -74,12 +74,10 @@ genisoimage -o $KEY_DIR/WP$i.iso -volid cidata -joliet -r $USER_D $META_D &>> $K
 --network bridge=virbr0,model=virtio \
 --noautoconsole
 ###time for VM initialization needed
-sleep 120
+sleep 200
 virsh destroy $VMNAME$i
 virsh start $VMNAME$i
-sleep 60
 done
-
-
+sleep 120
 
 exit 0
